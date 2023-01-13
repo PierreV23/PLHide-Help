@@ -1,4 +1,6 @@
 package net.pierrev23.plhidehelp;
 
-public class PLHideHelpPLugin {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class PLHideHelpPLugin extends JavaPlugin {
 }
