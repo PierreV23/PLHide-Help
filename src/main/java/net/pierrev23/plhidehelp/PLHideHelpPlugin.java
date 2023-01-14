@@ -2,6 +2,7 @@ package net.pierrev23.plhidehelp;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,7 +11,8 @@ public class PLHideHelpPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getLogger().info(ChatColor.GREEN + "[PLHideHelpPlugin] Enabled " + this.getName());
-        this.getCommand("help").setExecutor(new HelpCommand());
+        YamlConfiguration config = (YamlConfiguration) super.getConfig();
+        this.getCommand("help").setExecutor(new HelpCommand(config));
 
     }
     @Override
