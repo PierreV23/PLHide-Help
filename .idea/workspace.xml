@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3a38b59-eac8-4e37-a9eb-4e3858925852" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/pierrev23/plhidehelp/PLHideHelpPlugin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/net/pierrev23/plhidehelp/HelpCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/pierrev23/plhidehelp/PLHideHelpPLugin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/pierrev23/plhidehelp/PLHideHelpPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/pierrev23/plhidehelp/PLHideHelpPlugin.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

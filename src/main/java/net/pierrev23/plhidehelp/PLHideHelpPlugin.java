@@ -9,6 +9,7 @@ public class PLHideHelpPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getLogger().info(ChatColor.GREEN + "[PLHideHelpPlugin] Enabled " + this.getName());
+        this.getCommand("plhhelp").setExecutor(new HelpCommand());
     }
     @Override
     public void onDisable() {
