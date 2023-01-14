@@ -10,64 +10,62 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class HelpCommand implements CommandExecutor {
-    private YamlConfiguration config;
+    private final YamlConfiguration config;
     public HelpCommand(YamlConfiguration config) {
         this.config = config;
     }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             player.sendMessage(
                     getPlayerCommands(player)
                         .stream()
                         .filter(Objects::nonNull)
-                        .map(this::getCommandDescription)
+                        .sorted()
+                        .map(c -> "/" + c + ": " + getCommandDescription(c))
                         .collect(Collectors.joining("\n")
                         )
             );
-
         }
-
         return true;
     }
-    private Set<String> getPlayerGroups(Player player) {
-        Set<String> groups = getGroups();
-        Set<String> joined = new HashSet<String>();
-        groups.forEach((group) -> {
-            if (player.hasPermission("plhide.group." + group)) {
-                joined.add(group);
-                joined.addAll(getInheritedGroups(group));
-            }
-        });
-        return joined;
+
+    private Set<String> getPlayerCommands(Player player) {
+        return getPlayerGroups(player)
+                .stream()
+                .flatMap(g -> Stream.concat(Stream.of(g), getCommands(g).stream()))
+                .collect(Collectors.toSet());
     }
+
+    private Set<String> getPlayerGroups(Player player) {
+        return getGroups()
+            .stream()
+            .filter(g -> player.hasPermission("plhide.group." + g))
+            .flatMap(g -> Stream.concat(Stream.of(g), getInheritedGroups(g).stream()))
+            .collect(Collectors.toSet());
+    }
+
     private Set<String> getGroups() {
         return config.getConfigurationSection("groups").getKeys(false /* true for the keys of every element below and even further below. */);
     }
-    private List<String> getInheritedGroups(String group) {
-        return config.getStringList("groups." + group);
-    }
-    private List<String> getCommands(String group) {
-        if (group == null)
-            return getCommandsAvailable();
 
-        return config.getStringList("groups." + group + ".commands");
-        // As an alternative, you can always use config.getConfigurationSection("groups").getStringList(group);. Both work.
+    private List<String> getInheritedGroups(String group) {
+        return config.getStringList("groups." + group + ".included-groups");
     }
+
     private List<String> getCommandsAvailable() {
         return config.getStringList("commands");
     }
-    private Set<String> getPlayerCommands(Player player) {
-        Set<String> commands = new HashSet<String>();
-        getPlayerGroups(player).forEach((group) -> {
-            commands.addAll(getCommands(group));
-        });
-        return commands;
+
+    private List<String> getCommands(String group) {
+        return config.getStringList("groups." + group + ".commands");
     }
+
     private String getCommandDescription(String command) {
-        return config.getString("commands." + command);
+        return config.getString("commands." + command, "No description found");
     }
 }

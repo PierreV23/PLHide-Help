@@ -13,6 +13,7 @@ public class PLHideHelpPlugin extends JavaPlugin {
         Bukkit.getLogger().info(ChatColor.GREEN + "[PLHideHelpPlugin] Enabled " + this.getName());
         YamlConfiguration config = (YamlConfiguration) super.getConfig();
         this.getCommand("help").setExecutor(new HelpCommand(config));
+        this.getCommand("reload").setExecutor(new ReloadCommand(this));
 
     }
     @Override
