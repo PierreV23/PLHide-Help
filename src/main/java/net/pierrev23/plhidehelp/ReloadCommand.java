@@ -11,14 +11,21 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ReloadCommand implements CommandExecutor {
-    private final Plugin plugin;
-    public ReloadCommand(Plugin plugin) {
-        this.plugin = plugin;
+    private final Plugin pluginSelf;
+    private final Plugin pluginPLHide;
+    public ReloadCommand(Plugin pluginSelf, Plugin pluginPLHide) {
+            this.pluginSelf = pluginSelf;
+            this.pluginPLHide = pluginPLHide;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        plugin.reloadConfig();
+        sender.sendMessage("[PLHideHelp] Reloading...");
+        pluginSelf.reloadConfig();
+        sender.sendMessage("[PLHideHelp] Done reloading.");
+        sender.sendMessage("[PLHideHelp::PLHide] Reloading...");
+        pluginPLHide.reloadConfig();
+        sender.sendMessage("[PLHideHelp::PLHide] Done reloading.");
         return true;
     }
 }

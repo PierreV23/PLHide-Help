@@ -1,0 +1,8 @@
+prefix: "&8*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n&cHere are the descriptions to the following commands:\n"
+formatter: "§a/{command}§r: {description}"
+suffix: "\n&8*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
+
+commands:
+  home: "Teleport to your home."
+
+no-description: "§dNo description found§r"
